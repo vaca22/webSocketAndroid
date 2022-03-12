@@ -27,10 +27,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val myid = "8898"
-        val toid = "889865"
+        val myid = "889865"
+        val toid = "8898er65"
         Thread {
-            val uri: URI = URI.create("ws://192.168.6.110:8080?fruck=" + myid)
+            val uri: URI = URI.create("ws://192.168.6.110:8080?myid=" + myid)
             client = object : JWebSocketClient(uri) {
                 override fun onMessage(message: String) {
                     //message就是接收到的消息
@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
                 val gaga = JSONObject()
                 gaga.put("id", myid)
                 gaga.put("toid", toid)
-
                 gaga.put("params", "ddfg")
                 client.send(gaga.toString())
                 Thread.sleep(1000)
