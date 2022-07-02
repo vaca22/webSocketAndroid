@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         val myid = "8898eefr65"
         val toid = "8898eefdfr65"
         Thread {
-            val uri: URI = URI.create("ws://106.13.194.65:8080?myid=" + myid)
+            val uri: URI = URI.create("ws://192.168.6.105:3003/ws?phone=1307759669")
             client = object : JWebSocketClient(uri) {
                 override fun onMessage(message: String) {
                     //message就是接收到的消息
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             try {
-                client.connectionLostTimeout = 30
+                client.connectionLostTimeout = 5
                 client.connectBlocking()
             } catch (e: InterruptedException) {
                 e.printStackTrace()
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             if (client != null && client.isOpen()) {
                 val gaga = JSONObject()
                 gaga.put("fuck", "1123")
-                //  client.send(gaga.toString());
+                  client.send(gaga.toString());
             }
             repeat(100000) {
                 val gaga = JSONObject()
@@ -60,8 +60,10 @@ class MainActivity : AppCompatActivity() {
         }.start()
     }
 
-    override fun onDestroy() {
+
+
+    override fun onPause() {
         client.closeBlocking()
-        super.onDestroy()
+        super.onPause()
     }
 }

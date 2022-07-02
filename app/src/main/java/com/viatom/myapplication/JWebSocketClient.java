@@ -35,7 +35,7 @@ public class JWebSocketClient extends WebSocketClient {
 
     @Override
     public void onWebsocketHandshakeSentAsClient(WebSocket conn, ClientHandshake request) throws InvalidDataException {
-      //  super.onWebsocketHandshakeSentAsClient(conn, request);
+        super.onWebsocketHandshakeSentAsClient(conn, request);
     }
 
 
