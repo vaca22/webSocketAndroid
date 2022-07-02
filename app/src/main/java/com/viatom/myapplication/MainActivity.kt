@@ -45,16 +45,12 @@ class MainActivity : AppCompatActivity() {
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }
-            if (client != null && client.isOpen()) {
-                val gaga = JSONObject()
-                gaga.put("fuck", "1123")
-                  client.send(gaga.toString());
-            }
+
             repeat(100000) {
                 val gaga = JSONObject()
                 gaga.put("id", myid)
                 gaga.put("toid", toid)
-                gaga.put("params", "ddfg")
+                gaga.put("params", "call")
                 client.send(gaga.toString())
                 Thread.sleep(1000)
             }
