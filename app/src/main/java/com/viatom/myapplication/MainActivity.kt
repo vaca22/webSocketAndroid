@@ -23,14 +23,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
     lateinit var client: JWebSocketClient
+    val n1="13207759669"
+    val n2="15769415445"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val myid = "8898eefr65"
-        val toid = "8898eefdfr65"
+        val myid = n1
+        val toid = n2
         Thread {
-            val uri: URI = URI.create("ws://192.168.6.105:3003/ws?phone=1307759669")
+            val uri: URI = URI.create("ws://192.168.6.105:3003/ws?phone=" + myid)
             client = object : JWebSocketClient(uri) {
                 override fun onMessage(message: String) {
                     //message就是接收到的消息
