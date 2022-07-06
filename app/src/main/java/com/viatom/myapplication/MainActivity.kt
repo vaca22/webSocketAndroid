@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONObject
 import java.net.URI
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,31 +30,40 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val myid = n1
-        val toid = n2
+        val myid = n2
+        val toid = n1
+        val gaga = JSONObject()
+        gaga.put("id", myid)
+        gaga.put("toid", toid)
+        gaga.put("action", "call")
         Thread {
-            val uri: URI = URI.create("ws://192.168.6.105:3003/ws?phone=" + myid)
-            client = object : JWebSocketClient(uri) {
-                override fun onMessage(message: String) {
-                    //message就是接收到的消息
-                    Log.e("JWebSClientService", message)
+           val ff=Random(54455);
+            val gaga=ArrayList<JWebSocketClient>();
+            for(k in 0..500){
+                val myid= ff.nextInt(10000,200000000).toString()
+                val uri: URI = URI.create("ws://192.168.5.101:3003/ws?phone=" + myid)
+                val client = object : JWebSocketClient(uri) {
+                    override fun onMessage(message: String) {
+                        //message就是接收到的消息
+                        Log.e("JWebSClientService", message)
+                    }
                 }
-            }
-            try {
-                client.connectionLostTimeout = 5
-                client.connectBlocking()
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
+                try {
+                    client.connectionLostTimeout =20
+                    client.connect()
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+                gaga.add(client)
             }
 
-            repeat(100000) {
-                val gaga = JSONObject()
-                gaga.put("id", myid)
-                gaga.put("toid", toid)
-                gaga.put("params", "call")
-                client.send(gaga.toString())
-                Thread.sleep(1000)
-            }
+
+
+//            repeat(100000) {
+//
+//                client.send(gaga.toString())
+//                Thread.sleep(1000)
+//            }
             //client.closeBlocking()
         }.start()
     }
